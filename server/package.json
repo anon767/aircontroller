@@ -1,0 +1,17 @@
+{
+  "name": "zombiegame",
+  "version": "1.0.0",
+  "description": "zombie server",
+  "main": "server.js",
+  "dependencies": {
+    "websocket": "*",
+    "uws": "*"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
