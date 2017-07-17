@@ -1,11 +1,12 @@
+var game = null;
 $(document).ready(function () {
-    new Game();
+   game = new Game();
 });
 var Game = (function () {
     var myCommands = {
-        NewPlayerAction: NewPlayerAction,
-        PlayerMoveAction: PlayerMoveAction,
-        InitAction: InitAction
+        NewPlayer: NewPlayerAction,
+        m: PlayerMoveAction,
+        Init: InitAction
     };
     var queue = new createjs.LoadQueue(false);
     var stage = new createjs.Stage("stage");
@@ -13,11 +14,16 @@ var Game = (function () {
     var communication = null;
     var onReceive = function (data) {
         console.log(data);
-        var actionName = data.actionName + "Action";
+        var actionName = data.actionName;
         var actionData = data.actionData;
         console.log(actionName);
         new myCommands[actionName](gameState, actionData);
     }
+
+    var fullscreen = function () {
+        stage.canvas.width = window.innerWidth;
+        stage.canvas.height = window.innerHeight;
+    };
 
     var onOpen = function () {
         console.log("connected");
@@ -30,6 +36,7 @@ var Game = (function () {
     }
 
     var init = function () {
+        fullscreen();
         queue.loadManifest([
             {id: "bg", src: "assets/img/plain-white-background.jpg"}]);
         queue.on("complete", handleComplete, this);
@@ -43,6 +50,8 @@ var Game = (function () {
         tick();
     }
     init();
-
+    return {
+        fullscreen: fullscreen
+    }
 
 });

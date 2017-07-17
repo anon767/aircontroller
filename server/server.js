@@ -34,12 +34,12 @@ wss.on('connection', function connection(ws) {
                     actionName: "NewPlayer",
                     actionData: {x: 20, y: 20, color: "red", id: ws.id}
                 }));
-            } else if (response.action == "move") {
+            } else if (response.action == "m") {
                 var x = response.data.x;
                 var y = response.data.y;
                 var room = games[ws.room];
                 room.gameScreen.send(JSON.stringify({
-                    actionName: "PlayerMove",
+                    actionName: "m",
                     actionData: {x: x * 2, y: y * 2, id: ws.id}
                 }));
             }

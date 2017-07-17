@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    var room = prompt("Please enter roomid", null);
+    var room = prompt("Please enter roomid", 0);
     if (room)
         new Game(room);
 });
@@ -9,6 +9,7 @@ var Game = (function (id) {
     var joystick = new VirtualJoystick({
         mouseSupport: true,
         stationaryBase: true,
+        limitStickTravel: true,
         baseX: 200,
         baseY: 200
     });
@@ -16,8 +17,7 @@ var Game = (function (id) {
         InitAction: InitAction
     };
 
-
-    setInterval(function () {
+    var moveEvent = function () {
         var x, y = 0;
         if (joystick.right()) {
             x = "1";
@@ -32,9 +32,28 @@ var Game = (function (id) {
             y = "1";
         }
         if (x || y)
-            communication.send({action: "move", data: {x: x, y: y}});
-    }, 1 / 75 * 1000);
+            communication.send({action: "m", data: {x: x, y: y}});
+    };
+    var mousedownID = -1;  //Global ID of mouse down interval
+    function mouseDown(event) {
+        if (mousedownID == -1)  //Prevent multiple loops!
+            mousedownID = setInterval(moveEvent, 10);
 
+
+    }
+
+    function mouseUp(event) {
+        if (mousedownID != -1) {  //Only stop if exists
+            clearInterval(mousedownID);
+            mousedownID = -1;
+        }
+
+    }
+
+    joystick._container.addEventListener('mousedown', mouseDown, false);
+    joystick._container.addEventListener('touchdown', mouseDown, false);
+    joystick._container.addEventListener('mouseup', mouseUp, false);
+    joystick._container.addEventListener('touchend', mouseUp, false);
 
     var onReceive = function (data) {
         var actionName = data.actionName + "Action";
