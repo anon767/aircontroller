@@ -22,13 +22,13 @@ var Game = (function (id) {
         if (joystick.right()) {
             x = "1";
         }
-        if (joystick.left()) {
+        else if (joystick.left()) {
             x = "-1";
         }
         if (joystick.up()) {
             y = "-1";
         }
-        if (joystick.down()) {
+        else if (joystick.down()) {
             y = "1";
         }
         if (x || y)
@@ -38,8 +38,6 @@ var Game = (function (id) {
     function mouseDown(event) {
         if (mousedownID == -1)  //Prevent multiple loops!
             mousedownID = setInterval(moveEvent, 10);
-
-
     }
 
     function mouseUp(event) {
@@ -47,7 +45,6 @@ var Game = (function (id) {
             clearInterval(mousedownID);
             mousedownID = -1;
         }
-
     }
 
     joystick._container.addEventListener('mousedown', mouseDown, false);
