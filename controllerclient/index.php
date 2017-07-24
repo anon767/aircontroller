@@ -19,6 +19,8 @@ and open the template in the editor.
 
 <canvas id="stage" height="800" width="800" style="position:absolute; left: 0px; top: 0px;"></canvas>
 
+<div id="leftjoystick"></div>
+<div id="rightjoystick"></div>
 
 <script type="text/javascript" src="libs/jquery.js"></script>
 
