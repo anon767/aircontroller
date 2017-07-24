@@ -42,6 +42,12 @@ wss.on('connection', function connection(ws) {
                     actionName: "m",
                     actionData: {x: x * 2, y: y * 2, id: ws.id}
                 }));
+            } else if (response.action == "s") {
+                var room = games[ws.room];
+                room.gameScreen.send(JSON.stringify({
+                    actionName: "s",
+                    actionData: {x: x, y: y, id: ws.id}
+                }));
             }
 
 

@@ -26,6 +26,8 @@ and open the template in the editor.
 <script src="Entities/Player.js"></script>
 <script src="Entities/GameState.js"></script>
 <script src="Actions/InitAction.js"></script>
+<script src="Actions/ShootAction.js"></script>
+<script src="Entities/Bullet.js"></script>
 <script src="Actions/NewPlayerAction.js"></script>
 <script src="Actions/PlayerMoveAction.js"></script>
 <script src="Entities/Communication.js"></script>

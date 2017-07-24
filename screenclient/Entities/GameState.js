@@ -3,4 +3,5 @@ var GameState = (function (stage) {
     this.stage = stage;
     this.background = null;
     this.id = null;
+    this.bullets = [];
 });

@@ -1,12 +1,13 @@
 var game = null;
 $(document).ready(function () {
-   game = new Game();
+    game = new Game();
 });
 var Game = (function () {
     var myCommands = {
         NewPlayer: NewPlayerAction,
         m: PlayerMoveAction,
-        Init: InitAction
+        Init: InitAction,
+        s: ShootAction
     };
     var queue = new createjs.LoadQueue(false);
     var stage = new createjs.Stage("stage");

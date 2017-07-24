@@ -6,24 +6,11 @@ $(document).ready(function () {
 var Game = (function (id) {
     var gameId = id;
     var gameState = new GameState();
-    var joystickleft = new VirtualJoystick({
-        mouseSupport: true,
-        stationaryBase: true,
-        limitStickTravel: true,
-        baseX: 200,
-        baseY: 200
-    });
-    var joystickright = new VirtualJoystick({
-        mouseSupport: true,
-        stationaryBase: true,
-        limitStickTravel: true,
-        baseX: 500,
-        baseY: 200
-    });
+
     var myCommands = {
-        InitAction: InitAction
+        Init: InitAction
     };
-    var shootEvent = function () {
+    var shootEvent = function (event) {
         var xs, ys = 0;
         if (joystickright.right()) {
             xs = "1";
@@ -38,9 +25,9 @@ var Game = (function (id) {
             ys = "1";
         }
         if (xs || ys)
-            communication.send({action: "s", data: {x: x, y: y}});
+            communication.send({action: "s", data: {x: xs, y: ys}});
     };
-    var mouseEvent = function () {
+    var moveEvent = function (event) {
         var x, y = 0;
         if (joystickleft.right()) {
             x = "1";
@@ -57,30 +44,52 @@ var Game = (function (id) {
         if (x || y)
             communication.send({action: "m", data: {x: x, y: y}});
     };
-    var moveEvent = function () {
-        shootEvent();
-        mouseEvent();
-    };
-    var mousedownID = -1;  //Global ID of mouse down interval
-    function mouseDown(event) {
-        if (mousedownID == -1)  //Prevent multiple loops!
-            mousedownID = setInterval(moveEvent, 10);
-    }
-
-    function mouseUp(event) {
-        if (mousedownID != -1) {  //Only stop if exists
-            clearInterval(mousedownID);
-            mousedownID = -1;
+    var moveEventID = -1;  //Global ID of mouse down interval
+    var shootEventID = -1;  //Global ID of mouse down interval
+    var joystickleft = new VirtualJoystick({
+        mouseSupport: true,
+        container: document.getElementById("joystickleft"),
+        stationaryBase: true,
+        limitStickTravel: true,
+        baseX: 100,
+        baseY: window.innerHeight / 2,
+        stickRadius: 150,
+        touch: function (event) {
+            if (moveEventID == -1)  //Prevent multiple loops!
+                moveEventID = setInterval(function () {
+                    moveEvent(event)
+                }, 10);
+        },
+        touchend: function () {
+            if (moveEventID != -1) {  //Only stop if exists
+                clearInterval(moveEventID);
+                moveEventID = -1;
+            }
         }
-    }
-
-    joystickleft._container.addEventListener('mousedown', mouseDown, false);
-    joystickleft._container.addEventListener('touchdown', mouseDown, false);
-    joystickleft._container.addEventListener('mouseup', mouseUp, false);
-    joystickleft._container.addEventListener('touchend', mouseUp, false);
-
+    });
+    var joystickright = new VirtualJoystick({
+        mouseSupport: true,
+        container: document.getElementById("joystickright"),
+        stationaryBase: true,
+        limitStickTravel: true,
+        baseX: window.innerWidth - 100,
+        baseY: window.innerHeight / 2,
+        stickRadius: 150,
+        touch: function (event) {
+            if (shootEventID == -1)  //Prevent multiple loops!
+                shootEventID = setInterval(function () {
+                    shootEvent(event)
+                }, 10);
+        },
+        touchend: function () {
+            if (shootEventID != -1) {  //Only stop if exists
+                clearInterval(shootEventID);
+                shootEventID = -1;
+            }
+        }
+    });
     var onReceive = function (data) {
-        var actionName = data.actionName + "Action";
+        var actionName = data.actionName;
         var actionData = data.actionData;
         console.log(actionName);
         new myCommands[actionName](gameState, actionData);
