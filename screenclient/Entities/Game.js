@@ -12,6 +12,7 @@ var Game = (function () {
     var queue = new createjs.LoadQueue(false);
     var stage = new createjs.Stage("stage");
     var gameState = new GameState(stage);
+    var bulletManager = new BulletManager(gameState);
     var communication = null;
     var onReceive = function (data) {
         console.log(data);
@@ -33,6 +34,7 @@ var Game = (function () {
 
     var tick = function () {
         stage.update();
+        bulletManager.tick();
         requestAnimationFrame(tick);
     }
 
