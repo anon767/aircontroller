@@ -15,10 +15,8 @@ var Game = (function () {
     var bulletManager = new BulletManager(gameState);
     var communication = null;
     var onReceive = function (data) {
-        console.log(data);
         var actionName = data.actionName;
         var actionData = data.actionData;
-        console.log(actionName);
         new myCommands[actionName](gameState, actionData);
     }
 
@@ -32,9 +30,9 @@ var Game = (function () {
         communication.send({init: "gameScreen"});
     };
 
-    var tick = function () {
+    var tick = function (event) {
         stage.update();
-        bulletManager.tick();
+        bulletManager.tick(1);
         requestAnimationFrame(tick);
     }
 

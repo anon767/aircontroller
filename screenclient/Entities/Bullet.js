@@ -3,13 +3,13 @@ var Bullet = (function (color, x, y, direction) {
     this.circle.graphics.beginFill(color).drawCircle(0, 0, 2);
     this.circle.x = x;
     this.circle.y = y;
-    this.direction = direction;
+    this.circle.direction = direction;
     this.circle.time = 1000;
     var update = function (delta) {
-        circle.time--;
-        circle.x += direction.x*delta/100;
-        circle.y += direction.y*delta/100;
-        return circle.time >0;
+        this.object.time--;
+        this.object.x += this.object.direction.x*delta/100;
+        this.object.y += this.object.direction.y*delta/100;
+        return this.object.time >0;
     };
 
     return {
