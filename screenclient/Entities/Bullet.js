@@ -4,17 +4,16 @@ var Bullet = (function (color, x, y, direction) {
     this.circle.x = x;
     this.circle.y = y;
     this.circle.direction = direction;
-    this.circle.time = 1000;
+    this.circle.time = 100;
     var update = function (delta) {
         this.object.time--;
-        this.object.x += this.object.direction.x*10/delta;
-        this.object.y += this.object.direction.y*10/delta;
-        return this.object.time >0;
+        this.object.x += this.object.direction.x * 10 / delta;
+        this.object.y += this.object.direction.y * 10 / delta;
+        return this.object.time > 0;
     };
-
     return {
         object: this.circle,
-        id: this.id,
+        id: this.circle.id,
         update: update
     }
 });

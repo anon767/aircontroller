@@ -1,7 +1,7 @@
 var Communication = (function (Eventcallback, onopencallback) {
     var socket, send;
 
-    this.socket = new WebSocket('ws://127.0.0.1:9300');
+    this.socket = new WebSocket('ws://172.19.53.37:9300');
     this.socket.latency = 1;
     this.socket.ping = 1;
     this.socket.pong = 1;

@@ -1,3 +1,4 @@
+"use strict";
 $(document).ready(function () {
     var room = prompt("Please enter roomid", 0);
     if (room)

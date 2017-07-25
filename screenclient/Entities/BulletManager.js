@@ -3,15 +3,15 @@
  */
 var BulletManager = (function (gameState) {
     var destroyBullet = function (i) {
-        gameState.stage.removeChild(gameState.bullets[i].object.id);
+        console.log(gameState.bullets[i].object.id);
+        gameState.stage.removeChild(gameState.bullets[i].object);
         gameState.bullets[i] = null;
-        delete gameState.bullets[i];
+        gameState.bullets.splice(i, 1);
     };
     var tick = function (delta) {
-        for (i = 0; i < gameState.bullets.length - 1; i++) {
-            if (gameState.bullets[i])
-                if (!gameState.bullets[i].update(delta))
-                    destroyBullet(i);
+        for (var i = 0; i < gameState.bullets.length; i++) {
+            if (!gameState.bullets[i].update(delta))
+                destroyBullet(i);
         }
     };
     return {

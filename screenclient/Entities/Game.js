@@ -1,3 +1,4 @@
+"use strict";
 var game = null;
 $(document).ready(function () {
     game = new Game();
@@ -52,7 +53,8 @@ var Game = (function () {
     }
     init();
     return {
-        fullscreen: fullscreen
+        fullscreen: fullscreen,
+        gameState: gameState
     }
 
 });
