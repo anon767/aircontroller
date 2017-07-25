@@ -31,8 +31,8 @@ var Game = (function () {
     };
 
     var tick = function (event) {
-        stage.update();
         bulletManager.tick(1);
+        stage.update();
         requestAnimationFrame(tick);
     }
 

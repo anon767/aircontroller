@@ -11,7 +11,7 @@ var BulletManager = (function (gameState) {
         for (i = 0; i < gameState.bullets.length - 1; i++) {
             if (gameState.bullets[i])
                 if (!gameState.bullets[i].update(delta))
-                    console.log("destroy");
+                    destroyBullet(i);
         }
     };
     return {
