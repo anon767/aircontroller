@@ -11,38 +11,29 @@ var Game = (function (id) {
         Init: InitAction
     };
     var shootEvent = function (event) {
-        var xs, ys = 0;
-        if (joystickright.right()) {
-            xs = "1";
+
+        if (!joystickright.right() && !joystickright.left() && !joystickright.up() && !joystickright.down()) {
+            return;
         }
-        else if (joystickright.left()) {
-            xs = "-1";
-        }
-        if (joystickright.up()) {
-            ys = "-1";
-        }
-        else if (joystickright.down()) {
-            ys = "1";
-        }
-        if (xs || ys)
-            communication.send({action: "s", data: {x: xs, y: ys}});
+        var x = joystickright.deltaX();
+        var y = joystickright.deltaY();
+        var angle = Math.atan2(y, x);
+        communication.send({
+            action: "s",
+            data: {x: Math.cos(angle), y: Math.sin(angle)}
+        });
     };
     var moveEvent = function (event) {
-        var x, y = 0;
-        if (joystickleft.right()) {
-            x = "1";
+        if (!joystickleft.right() && !joystickleft.left() && !joystickleft.up() && !joystickleft.down()) {
+            return;
         }
-        else if (joystickleft.left()) {
-            x = "-1";
-        }
-        if (joystickleft.up()) {
-            y = "-1";
-        }
-        else if (joystickleft.down()) {
-            y = "1";
-        }
-        if (x || y)
-            communication.send({action: "m", data: {x: x, y: y}});
+        var x = joystickleft.deltaX();
+        var y = joystickleft.deltaY();
+        var angle = Math.atan2(y, x);
+        communication.send({
+            action: "m",
+            data: {x: Math.cos(angle), y: Math.sin(angle)}
+        });
     };
     var moveEventID = -1;  //Global ID of mouse down interval
     var shootEventID = -1;  //Global ID of mouse down interval
