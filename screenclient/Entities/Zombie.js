@@ -22,8 +22,8 @@ var Zombie = (function (x, y) {
         var nearestPlayer = this.getNearestPlayer(playerList);
         if (nearestPlayer === null) return;
         var angle = Math.atan2(nearestPlayer.object.y - this.object.y, nearestPlayer.object.x - this.object.x);
-        this.object.x += Math.cos(angle) * delta * this.acceleration;
-        this.object.y += Math.sin(angle) * delta * this.acceleration;
+        this.object.x += Math.cos(angle) * delta * this.acceleration/10;
+        this.object.y += Math.sin(angle) * delta * this.acceleration/10;
     };
 
     return {

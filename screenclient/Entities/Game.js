@@ -32,12 +32,19 @@ var Game = (function () {
         communication.send({init: "gameScreen"});
     };
 
+    var fps = 60;
+    var now, delta;
+    var then = Date.now();
+    var interval = 1000 / fps;
     var tick = function (event) {
-        bulletManager.tick(1);
+        now = Date.now();
+        delta = now - then;
+        bulletManager.tick(delta / 10);
         stage.update();
+        zombieManager.check(gameState.playerList, delta / 10);
+        then = now - (delta % interval);
         requestAnimationFrame(tick);
-        zombieManager.check(gameState.playerList, 1);
-    }
+    };
 
     var init = function () {
         fullscreen();

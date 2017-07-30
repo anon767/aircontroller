@@ -7,8 +7,8 @@ var Bullet = (function (color, x, y, direction) {
     this.circle.time = 100;
     var update = function (delta) {
         this.object.time--;
-        this.object.x += this.object.direction.x * 10 / delta;
-        this.object.y += this.object.direction.y * 10 / delta;
+        this.object.x += this.object.direction.x * delta;
+        this.object.y += this.object.direction.y * delta;
         return this.object.time > 0;
     };
     return {
