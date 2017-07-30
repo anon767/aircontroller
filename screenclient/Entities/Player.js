@@ -4,6 +4,7 @@ var Player = (function (color, x, y, id) {
     this.circle.x = x;
     this.circle.y = y;
     this.id = id;
+    this.acceleration = 2;
     function update() {
 
     }
@@ -12,5 +13,6 @@ var Player = (function (color, x, y, id) {
         object: this.circle,
         id: this.id,
         update: update,
+        acceleration: this.acceleration
     }
 });

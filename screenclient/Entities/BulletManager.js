@@ -3,7 +3,6 @@
  */
 var BulletManager = (function (gameState) {
     var destroyBullet = function (i) {
-        console.log(gameState.bullets[i].object.id);
         gameState.stage.removeChild(gameState.bullets[i].object);
         gameState.bullets[i] = null;
         gameState.bullets.splice(i, 1);

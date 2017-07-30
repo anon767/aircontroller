@@ -15,6 +15,7 @@ var Game = (function () {
     var gameState = new GameState(stage);
     var bulletManager = new BulletManager(gameState);
     var communication = null;
+    var zombieManager = new Zombiemanager(stage);
     var onReceive = function (data) {
         var actionName = data.actionName;
         var actionData = data.actionData;
@@ -35,6 +36,7 @@ var Game = (function () {
         bulletManager.tick(1);
         stage.update();
         requestAnimationFrame(tick);
+        zombieManager.check(gameState.playerList, 1);
     }
 
     var init = function () {
@@ -47,6 +49,7 @@ var Game = (function () {
     var handleComplete = function () {
         gameState.background = new Background("bg", queue);
         gameState.stage.addChild(gameState.background);
+        gameState.zombieManager = zombieManager;
         createjs.Ticker.setFPS(65);
         communication = new Communication(onReceive, onOpen);
         tick();

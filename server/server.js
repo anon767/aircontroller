@@ -32,7 +32,7 @@ wss.on('connection', function connection(ws) {
                 ws.send(JSON.stringify({actionName: "Init", actionData: {id: ws.id}}));
                 gameroom.gameScreen.send(JSON.stringify({
                     actionName: "NewPlayer",
-                    actionData: {x: 20, y: 20, color: "red", id: ws.id}
+                    actionData: {x: 20, y: 20, color: "blue", id: ws.id}
                 }));
             } else if (response.action == "m") {
                 var x = response.data.x;
@@ -40,7 +40,7 @@ wss.on('connection', function connection(ws) {
                 var room = games[ws.room];
                 room.gameScreen.send(JSON.stringify({
                     actionName: "m",
-                    actionData: {x: x * 2, y: y * 2, id: ws.id}
+                    actionData: {x: x, y: y, id: ws.id}
                 }));
             } else if (response.action == "s") {
                 var room = games[ws.room];

@@ -4,4 +4,5 @@ var GameState = (function (stage) {
     this.background = null;
     this.id = null;
     this.bullets = [];
+    this.zombieManager = null;
 });
