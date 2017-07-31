@@ -31,6 +31,7 @@ and open the template in the editor.
 <script src="Entities/BulletManager.js"></script>
 <script src="Entities/Zombie.js"></script>
 <script src="Entities/Zombiemanager.js"></script>
+<script src="Entities/Collision.js"></script>
 <script src="Actions/NewPlayerAction.js"></script>
 <script src="Actions/PlayerMoveAction.js"></script>
 <script src="Entities/Communication.js"></script>

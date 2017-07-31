@@ -13,6 +13,7 @@ var Game = (function () {
     var queue = new createjs.LoadQueue(false);
     var stage = new createjs.Stage("stage");
     var gameState = new GameState(stage);
+    var collision = new Collision(gameState);
     var bulletManager = new BulletManager(gameState);
     var communication = null;
     var zombieManager = new Zombiemanager(stage);
@@ -42,6 +43,7 @@ var Game = (function () {
         bulletManager.tick(delta / 10);
         stage.update();
         zombieManager.check(gameState.playerList, delta / 10);
+        collision.tick();
         then = now - (delta % interval);
         requestAnimationFrame(tick);
     };
