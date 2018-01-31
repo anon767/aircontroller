@@ -7,6 +7,11 @@ Basic Air Console Stub
 ## What is an Air Console Game
 
 Turn any mobile device into a game controller and put the gamescreen to your TV.
+(see as an example: https://www.airconsole.com/)
+
+## What to do
+
+this is just an educational demonstration how to develop such game. But it can be easily extended
 
 ## How to use
 
